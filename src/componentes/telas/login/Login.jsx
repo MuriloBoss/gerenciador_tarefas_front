@@ -69,7 +69,7 @@ function Login() {
                         <form onSubmit={acaoLogin}>
                             <h1 className="h3 mb-3 fw-normal">Login de usuário</h1>
                             <CampoEntrada value={email}
-                                id="txtEmail" name="email" label="Nome"
+                                id="txtEmail" name="email" label="Email"
                                 tipo="email" onchange={e => setEmail(e.target.value)}
                                 msgvalido="Email OK" msginvalido="Informe o email"
                                 requerido={true} readonly={false}
