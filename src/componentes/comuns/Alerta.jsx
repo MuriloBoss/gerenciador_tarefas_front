@@ -14,7 +14,7 @@ const Alerta = ({ alerta }) => {
 
     return (
         <div>
-            {(alerta.message.length > 0 && exibir) &&
+            {(alerta?.message?.length > 0 && exibir) &&
                 <Alert variant={alerta.status === 'error' ? 'danger' : 'primary' }>
                     {alerta.message}
                 </Alert>
