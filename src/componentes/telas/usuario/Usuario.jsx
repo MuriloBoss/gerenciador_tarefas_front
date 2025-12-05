@@ -8,14 +8,17 @@ export default function Usuario() {
     const [usuarios, setUsuarios] = useState([]);
     const [show, setShow] = useState(false);
     const [usuario, setUsuario] = useState({ nome: '', email: '', senha: '', tipo: 'comum' });
-
-    if (!isAdmin()) {
-        return <Navigate to="/privado" />;
-    }
+    const admin = isAdmin();
 
     useEffect(() => {
-        carregarUsuarios();
-    }, []);
+        if (admin) {
+            carregarUsuarios();
+        }
+    }, [admin]);
+
+    if (!admin) {
+        return <Navigate to="/privado" />;
+    }
 
     const carregarUsuarios = async () => {
         try {
