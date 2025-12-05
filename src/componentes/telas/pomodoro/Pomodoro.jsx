@@ -37,6 +37,7 @@ export default function Pomodoro() {
             handleTimerComplete();
         }
         return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isRunning, timer]);
 
     const carregarProjetos = async () => {
