@@ -37,8 +37,12 @@ function MenuPrivado() {
                     <Navbar.Collapse className="justify-content-end">                        
                         <NavDropdown title={usuario ? "Usuário: " + usuario.nome : "Usuário"} id="basic-nav-dropdown">
                             {usuario ?
-                                <NavLink className="dropdown-item" exact="true"
-                                    to="/" onClick={() => logout()}>Logout</NavLink>
+                                <>
+                                    <NavLink className="dropdown-item" exact="true"
+                                        to="perfil">Meu Perfil</NavLink>
+                                    <NavLink className="dropdown-item" exact="true"
+                                        to="/" onClick={() => logout()}>Logout</NavLink>
+                                </>
                                 :
                                 <NavLink className="dropdown-item" exact="true"
                                     to="/login">login</NavLink>

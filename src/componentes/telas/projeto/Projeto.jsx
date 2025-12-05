@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Container, Table, Button, Form, Modal } from 'react-bootstrap';
 import { getProjetosAPI, createProjetoAPI, updateProjetoAPI, deleteProjetoAPI } from '../../../servicos/ProjetoServico';
+import { isAdmin } from '../../../seguranca/Autenticacao';
 
 export default function Projeto() {
     const [projetos, setProjetos] = useState([]);
@@ -74,9 +75,11 @@ export default function Projeto() {
                                 <Button variant="warning" size="sm" onClick={() => handleEditar(proj)} className="me-2">
                                     <i className="bi bi-pencil"></i>
                                 </Button>
-                                <Button variant="danger" size="sm" onClick={() => handleExcluir(proj.codigo)}>
-                                    <i className="bi bi-trash"></i>
-                                </Button>
+                                {isAdmin() && (
+                                    <Button variant="danger" size="sm" onClick={() => handleExcluir(proj.codigo)}>
+                                        <i className="bi bi-trash"></i>
+                                    </Button>
+                                )}
                             </td>
                         </tr>
                     ))}

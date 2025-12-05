@@ -21,8 +21,12 @@ function MenuPublico() {
                         </Nav>
                     </Navbar.Collapse>
                     <Navbar.Collapse className="justify-content-end">
-                        <NavLink className="nav-link active" exact="true"
-                            to="/login">Login</NavLink>
+                        <Nav>
+                            <NavLink className="nav-link active" exact="true"
+                                to="/cadastro">Cadastrar</NavLink>
+                            <NavLink className="nav-link active" exact="true"
+                                to="/login">Login</NavLink>
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

@@ -44,6 +44,11 @@ export const getUsuario = () => {
     }
 }
 
+export const isAdmin = () => {
+    const usuario = getUsuario();
+    return usuario && usuario.tipo === 'admin';
+}
+
 export const gravaAutenticacao = (json) => {
     localStorage.setItem(NOMEAPP+'/autenticacao',JSON.stringify(json));
 }
