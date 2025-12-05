@@ -2,10 +2,15 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { NavLink, Outlet } from 'react-router-dom';
-import { getUsuario, logout } from '../seguranca/Autenticacao';
+import { NavLink, Outlet, Navigate } from 'react-router-dom';
+import { getUsuario, logout, getToken, isAdmin } from '../seguranca/Autenticacao';
 
 function MenuPrivado() {
+
+    const token = getToken();
+    if (!token) {
+        return <Navigate to="/login" />;
+    }
 
     const usuario = getUsuario();
 
@@ -28,6 +33,10 @@ function MenuPrivado() {
                                         to="tarefas">Tarefas</NavLink>
                                     <NavLink className="dropdown-item" exact="true"
                                         to="pomodoro">Pomodoro</NavLink>
+                                    {isAdmin() && (
+                                        <NavLink className="dropdown-item" exact="true"
+                                            to="usuarios">Usuários</NavLink>
+                                    )}
                                 </NavDropdown>
                             }
                             <NavLink className="nav-link active" exact="true"

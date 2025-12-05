@@ -35,3 +35,28 @@ export const updateUsuarioAPI = async (usuario) => {
     });
     return await response.json();
 };
+
+export const getUsuariosAPI = async () => {
+    const response = await fetch(`${urlBase}/usuarios`, {
+        method: "GET",
+        headers: getHeaders()
+    });
+    return await response.json();
+};
+
+export const createUsuarioAdminAPI = async (usuario) => {
+    const response = await fetch(`${urlBase}/usuarios/admin`, {
+        method: "POST",
+        headers: getHeaders(),
+        body: JSON.stringify(usuario)
+    });
+    return await response.json();
+};
+
+export const deleteUsuarioAPI = async (codigo) => {
+    const response = await fetch(`${urlBase}/usuarios/${codigo}`, {
+        method: "DELETE",
+        headers: getHeaders()
+    });
+    return await response.json();
+};

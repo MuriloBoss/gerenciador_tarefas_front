@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Container, Table, Button, Form, Modal, Badge } from 'react-bootstrap';
 import { getTarefasAPI, createTarefaAPI, updateTarefaAPI, deleteTarefaAPI } from '../../../servicos/TarefaServico';
 import { getProjetosAPI } from '../../../servicos/ProjetoServico';
-import { isAdmin } from '../../../seguranca/Autenticacao';
 
 export default function Tarefa() {
     const [tarefas, setTarefas] = useState([]);
@@ -35,12 +34,14 @@ export default function Tarefa() {
 
     const carregarTarefas = async () => {
         const data = await getTarefasAPI();
-        setTarefas(Array.isArray(data) ? data : []);
+        console.log('Tarefas recebidas:', data);
+        setTarefas(data.tarefas || data || []);
     };
 
     const carregarProjetos = async () => {
         const data = await getProjetosAPI();
-        setProjetos(Array.isArray(data) ? data : []);
+        console.log('Projetos recebidos:', data);
+        setProjetos(data.projetos || data || []);
     };
 
     const handleClose = () => {
@@ -92,6 +93,7 @@ export default function Tarefa() {
                         <th>Código</th>
                         <th>Título</th>
                         <th>Projeto</th>
+                        <th>Usuário</th>
                         <th>Status</th>
                         <th>Prioridade</th>
                         <th>Ações</th>
@@ -103,17 +105,16 @@ export default function Tarefa() {
                             <td>{tar.codigo}</td>
                             <td>{tar.titulo}</td>
                             <td>{getNomeProjeto(tar.projeto_codigo)}</td>
+                            <td>{tar.usuario_nome || 'N/A'}</td>
                             <td><Badge bg={statusColors[tar.status]}>{tar.status}</Badge></td>
                             <td><Badge bg={prioridadeColors[tar.prioridade]}>{tar.prioridade}</Badge></td>
                             <td>
                                 <Button variant="warning" size="sm" onClick={() => handleEditar(tar)} className="me-2">
                                     <i className="bi bi-pencil"></i>
                                 </Button>
-                                {isAdmin() && (
-                                    <Button variant="danger" size="sm" onClick={() => handleExcluir(tar.codigo)}>
-                                        <i className="bi bi-trash"></i>
-                                    </Button>
-                                )}
+                                <Button variant="danger" size="sm" onClick={() => handleExcluir(tar.codigo)}>
+                                    <i className="bi bi-trash"></i>
+                                </Button>
                             </td>
                         </tr>
                     ))}

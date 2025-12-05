@@ -11,6 +11,7 @@ import Pomodoro from './componentes/telas/pomodoro/Pomodoro';
 import Login from './componentes/telas/login/Login';
 import Cadastro from './componentes/telas/usuario/Cadastro';
 import Perfil from './componentes/telas/usuario/Perfil';
+import Usuario from './componentes/telas/usuario/Usuario';
 import MenuPublico from './componentes/MenuPublico';
 import MenuPrivado from './componentes/MenuPrivado';
 
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "perfil",
         element: <Perfil />,
+      },
+      {
+        path: "usuarios",
+        element: <Usuario />,
       }
     ]
   }

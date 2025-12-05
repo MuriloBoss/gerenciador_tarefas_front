@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Container, Table, Button, Form, Modal } from 'react-bootstrap';
 import { getProjetosAPI, createProjetoAPI, updateProjetoAPI, deleteProjetoAPI } from '../../../servicos/ProjetoServico';
-import { isAdmin } from '../../../seguranca/Autenticacao';
 
 export default function Projeto() {
     const [projetos, setProjetos] = useState([]);
@@ -15,7 +14,8 @@ export default function Projeto() {
 
     const carregarProjetos = async () => {
         const data = await getProjetosAPI();
-        setProjetos(Array.isArray(data) ? data : []);
+        console.log('Projetos recebidos:', data);
+        setProjetos(data.projetos || data || []);
     };
 
     const handleClose = () => {
@@ -62,6 +62,7 @@ export default function Projeto() {
                         <th>Código</th>
                         <th>Nome</th>
                         <th>Descrição</th>
+                        <th>Usuário</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -71,15 +72,14 @@ export default function Projeto() {
                             <td>{proj.codigo}</td>
                             <td>{proj.nome}</td>
                             <td>{proj.descricao}</td>
+                            <td>{proj.usuario_nome || 'N/A'}</td>
                             <td>
                                 <Button variant="warning" size="sm" onClick={() => handleEditar(proj)} className="me-2">
                                     <i className="bi bi-pencil"></i>
                                 </Button>
-                                {isAdmin() && (
-                                    <Button variant="danger" size="sm" onClick={() => handleExcluir(proj.codigo)}>
-                                        <i className="bi bi-trash"></i>
-                                    </Button>
-                                )}
+                                <Button variant="danger" size="sm" onClick={() => handleExcluir(proj.codigo)}>
+                                    <i className="bi bi-trash"></i>
+                                </Button>
                             </td>
                         </tr>
                     ))}
