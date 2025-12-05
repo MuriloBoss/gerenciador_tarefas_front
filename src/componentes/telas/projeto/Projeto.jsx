@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Container, Table, Button, Form, Modal } from 'react-bootstrap';
 import { getProjetosAPI, createProjetoAPI, updateProjetoAPI, deleteProjetoAPI } from '../../../servicos/ProjetoServico';
+import { isAdmin } from '../../../seguranca/Autenticacao';
 
 export default function Projeto() {
     const [projetos, setProjetos] = useState([]);
     const [show, setShow] = useState(false);
     const [projeto, setProjeto] = useState({ codigo: 0, nome: '', descricao: '', usuario_codigo: 1 });
     const [editando, setEditando] = useState(false);
+    const admin = isAdmin();
 
     useEffect(() => {
         carregarProjetos();
@@ -76,9 +78,11 @@ export default function Projeto() {
                                 <Button variant="warning" size="sm" onClick={() => handleEditar(proj)} className="me-2">
                                     <i className="bi bi-pencil"></i>
                                 </Button>
-                                <Button variant="danger" size="sm" onClick={() => handleExcluir(proj.codigo)}>
-                                    <i className="bi bi-trash"></i>
-                                </Button>
+                                {admin && (
+                                    <Button variant="danger" size="sm" onClick={() => handleExcluir(proj.codigo)}>
+                                        <i className="bi bi-trash"></i>
+                                    </Button>
+                                )}
                             </td>
                         </tr>
                     ))}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Table, Button, Form, Modal, Badge } from 'react-bootstrap';
 import { getTarefasAPI, createTarefaAPI, updateTarefaAPI, deleteTarefaAPI } from '../../../servicos/TarefaServico';
 import { getProjetosAPI } from '../../../servicos/ProjetoServico';
+import { isAdmin } from '../../../seguranca/Autenticacao';
 
 export default function Tarefa() {
     const [tarefas, setTarefas] = useState([]);
@@ -9,6 +10,7 @@ export default function Tarefa() {
     const [show, setShow] = useState(false);
     const [tarefa, setTarefa] = useState({ codigo: 0, titulo: '', descricao: '', status: 'pendente', prioridade: 'media', projeto_codigo: '' });
     const [editando, setEditando] = useState(false);
+    const admin = isAdmin();
 
     const statusOptions = ['pendente', 'em_andamento', 'concluida', 'cancelada'];
     const prioridadeOptions = ['baixa', 'media', 'alta', 'urgente'];
@@ -110,9 +112,11 @@ export default function Tarefa() {
                                 <Button variant="warning" size="sm" onClick={() => handleEditar(tar)} className="me-2">
                                     <i className="bi bi-pencil"></i>
                                 </Button>
-                                <Button variant="danger" size="sm" onClick={() => handleExcluir(tar.codigo)}>
-                                    <i className="bi bi-trash"></i>
-                                </Button>
+                                {admin && (
+                                    <Button variant="danger" size="sm" onClick={() => handleExcluir(tar.codigo)}>
+                                        <i className="bi bi-trash"></i>
+                                    </Button>
+                                )}
                             </td>
                         </tr>
                     ))}
