@@ -34,13 +34,11 @@ export default function Tarefa() {
 
     const carregarTarefas = async () => {
         const data = await getTarefasAPI();
-        console.log('Tarefas recebidas:', data);
         setTarefas(data.tarefas || data || []);
     };
 
     const carregarProjetos = async () => {
         const data = await getProjetosAPI();
-        console.log('Projetos recebidos:', data);
         setProjetos(data.projetos || data || []);
     };
 

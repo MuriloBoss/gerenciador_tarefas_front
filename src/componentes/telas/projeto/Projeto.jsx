@@ -14,7 +14,6 @@ export default function Projeto() {
 
     const carregarProjetos = async () => {
         const data = await getProjetosAPI();
-        console.log('Projetos recebidos:', data);
         setProjetos(data.projetos || data || []);
     };
 
